@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">FiveChess</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_exit">Exit</string>
+    <string name="name">Name</string>
+    <string name="action_reconnect">Reconnect</string>
+    <string name="button_invite">Invite</string>
+    <string name="button_agree">Agree</string>
+    <string name="button_disagree">Disagree</string>
+    <string name="textview_from">From </string>
+    <string name="setting_server_address">Server Address</string>
+    <string name="textview_player1">Player 1: </string>
+    <string name="textview_player2">Player 2: </string>
+    <string name="textview_black">(black)</string>
+    <string name="textview_white">(white)</string>
+    <string name="textview_myturn">My turn</string>
+    <string name="textview_partnerturn">Partner turn</string>
+    <string name="toast_youwin">You win!</string>
+    <string name="toast_youlost">You lost!</string>
+    <string name="toast_has_left_game">has left game</string>
+    <string name="toast_disagree_invite"> is disagree your invite!</string>
+
+</resources>
