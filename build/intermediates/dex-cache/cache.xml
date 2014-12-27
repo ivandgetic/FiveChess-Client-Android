@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pre-dex-items>
+<items version="2">
 
     <item
-        dex="/Users/ivandgetic/AndroidStudioProjects/FiveChess/app/build/intermediates/pre-dexed/debug/support-annotations-20.0.0-bca9cd8c8082330ef7549e0398af852faae531fd.jar"
-        jar="/Applications/Android Studio.app/sdk/extras/android/m2repository/com/android/support/support-annotations/20.0.0/support-annotations-20.0.0.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="9d9013e9ff35fc3756411e62873c363c70c638fa"/>
+        jar="D:\Users\ivandgetic\Documents\GitHub\FiveChess-Client-Android\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
+        jumboMode="false" revision="21.1.2" sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex
+            dex="D:\Users\ivandgetic\Documents\GitHub\FiveChess-Client-Android\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-bb77eafe8084fa3c6166bd005881202fa8f09e89.jar" />
+    </item>
     <item
-        dex="/Users/ivandgetic/AndroidStudioProjects/FiveChess/app/build/intermediates/pre-dexed/debug/classes-1293cc1260ffdaa614171697f7d61edd0f4e5477.jar"
-        jar="/Users/ivandgetic/AndroidStudioProjects/FiveChess/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/classes.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="8694693636ab36910c8100ce527c258ff3ebece0"/>
+        jar="D:\Users\ivandgetic\Documents\GitHub\FiveChess-Client-Android\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
+        jumboMode="false" revision="21.1.2" sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex
+            dex="D:\Users\ivandgetic\Documents\GitHub\FiveChess-Client-Android\app\build\intermediates\pre-dexed\debug\classes-8b2c9a9dc9f0b9b4bacb4228ff53ad74e160d70b.jar" />
+    </item>
     <item
-        dex="/Users/ivandgetic/AndroidStudioProjects/FiveChess/app/build/intermediates/pre-dexed/debug/internal_impl-20.0.0-32a971027c4b73180dd9c1fe030d89c8011a82df.jar"
-        jar="/Users/ivandgetic/AndroidStudioProjects/FiveChess/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/libs/internal_impl-20.0.0.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d"/>
+        jar="C:\Users\ivandgetic\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
+        jumboMode="false" revision="21.1.2" sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex
+            dex="D:\Users\ivandgetic\Documents\GitHub\FiveChess-Client-Android\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-4fddd910fa227796425c29653e92159511aa4b87.jar" />
+    </item>
 
-</pre-dex-items>
+</items>

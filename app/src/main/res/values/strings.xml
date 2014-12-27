@@ -21,5 +21,6 @@
     <string name="toast_youlost">You lost!</string>
     <string name="toast_has_left_game">has left game</string>
     <string name="toast_disagree_invite"> is disagree your invite!</string>
+    <string name="invite_from">Invite from: </string>
 
 </resources>

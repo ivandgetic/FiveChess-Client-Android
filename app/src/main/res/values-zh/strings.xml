@@ -21,6 +21,7 @@
     <string name="toast_youwin">你赢了!</string>
     <string name="toast_has_left_game">已经退出游戏</string>
     <string name="toast_disagree_invite"> 拒绝你的邀请!</string>
+    <string name="invite_from">收到对战来自：</string>
 
 
 </resources>
