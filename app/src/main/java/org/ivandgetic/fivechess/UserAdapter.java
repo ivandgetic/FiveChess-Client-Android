@@ -51,10 +51,10 @@ public class UserAdapter extends BaseAdapter {
         TextView remoteIP = (TextView) view.findViewById(R.id.textView_remoteIP);
         final Button invite= (Button) view.findViewById(R.id.button_invite);
         name.setText(userItem.getName());
-        //state.setText("State:" + userItem.getState());
-        state.setText("");
+        state.setText(userItem.getState());
+        //state.setText("");
         remoteIP.setText(context.getString(R.string.textview_from)+" " + userItem.getRemoteIP().substring(1));
-        if (userItem.getName().equals(MyActivity.preferences.getString("name", ""))){
+        if (userItem.getName().equals(MainActivity.preferences.getString("name", ""))){
             invite.setEnabled(false);
         }else if (userItem.getState().equals("online")){
             invite.setEnabled(true);
@@ -65,8 +65,8 @@ public class UserAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 try {
-                    MyService.getMyService().out.writeUTF("operate:state:"+MyActivity.preferences.getString("name","")+":"+"invite");
-                    MyService.getMyService().out.writeUTF("operate:"+"invite:"+MyActivity.preferences.getString("name", "")+":"+userItem.getName());
+                    MyService.getMyService().out.writeUTF("operate:state:"+ MainActivity.preferences.getString("name","")+":"+"invite");
+                    MyService.getMyService().out.writeUTF("operate:"+"invite:"+ MainActivity.preferences.getString("name", "")+":"+userItem.getName());
                     GameConfig.setPartner(userItem.getName());
                 } catch (IOException e) {
                     e.printStackTrace();

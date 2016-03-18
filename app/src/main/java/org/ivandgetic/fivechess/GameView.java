@@ -31,6 +31,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     int startY = 0;
     int GRID_WIDTH = GameConfig.getWIDTH() / GameConfig.getPOINT_NUM();
 
+    public static GameView getGameView() {
+        return gameView;
+    }
+
     public GameView(Context context) {
         super(context);
         InitGameView();
@@ -46,10 +50,16 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         InitGameView();
     }
 
-    public static GameView getGameView() {
-        return gameView;
+    public void InitGameView() {
+        getHolder().addCallback(this);
+        gameView = this;
+        paint = new Paint();
+        paint.setAntiAlias(true);
+        startX = GRID_WIDTH / 2;
+        startY = GRID_WIDTH / 2;
+        lastx = null;
+        lasty = null;
     }
-
     public static void check() {
         try {
             for (int i = 0; i < GameConfig.GRID_NUM; i++) {
@@ -60,11 +70,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                         }
                         if (chess[i][j] == chess[i][j + 1] && chess[i][j + 1] == chess[i][j + 2] && chess[i][j + 2] == chess[i][j + 3] && chess[i][j + 3] == chess[i][j + 4]) {//竖
                             end(i, j, i, j + 4);
-
                         }
                         if (chess[i][j] == chess[i + 1][j + 1] && chess[i + 1][j + 1] == chess[i + 2][j + 2] && chess[i + 2][j + 2] == chess[i + 3][j + 3] && chess[i + 3][j + 3] == chess[i + 4][j + 4]) {//右斜
                             end(i, j, i + 4, j + 4);
-
                         }
                         if (chess[i][j] == chess[i - 1][j + 1] && chess[i - 1][j + 1] == chess[i - 2][j + 2] && chess[i - 2][j + 2] == chess[i - 3][j + 3] && chess[i - 3][j + 3] == chess[i - 4][j + 4]) {//左斜
                             end(i, j, i - 4, j + 4);
@@ -79,27 +87,19 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     public static void end(int i1, int j1, int i2, int j2) {
         if (chess[i1][j1] == myColor) {
-            Toast.makeText(MyActivity.getMyActivity(), MyActivity.getMyActivity().getString(R.string.toast_youwin), Toast.LENGTH_LONG).show();
-            GameViewFragment.textViewPlayer1Turn.setText("");
-            GameViewFragment.textViewPlayer2Turn.setText("");
+            Toast.makeText(MainActivity.getMainActivity(), MainActivity.getMainActivity().getString(R.string.toast_youwin), Toast.LENGTH_LONG).show();
+            GameViewActivity.textViewPlayer1Turn.setText("");
+            GameViewActivity.textViewPlayer2Turn.setText("");
             gameEnd = true;
         } else {
-            Toast.makeText(MyActivity.getMyActivity(), MyActivity.getMyActivity().getString(R.string.toast_youlost), Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.getMainActivity(), MainActivity.getMainActivity().getString(R.string.toast_youlost), Toast.LENGTH_LONG).show();
             gameEnd = true;
-            GameViewFragment.textViewPlayer1Turn.setText("");
-            GameViewFragment.textViewPlayer2Turn.setText("");
+            GameViewActivity.textViewPlayer1Turn.setText("");
+            GameViewActivity.textViewPlayer2Turn.setText("");
         }
         line = i1 + ":" + j1 + ":" + i2 + ":" + j2;
     }
 
-    public void InitGameView() {
-        getHolder().addCallback(this);
-        gameView = this;
-        paint = new Paint();
-        paint.setAntiAlias(true);
-        startX = GRID_WIDTH / 2;
-        startY = GRID_WIDTH / 2;
-    }
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -164,19 +164,19 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                             turn = false;
                             check();
                             if (!GameView.gameEnd) {
-                                if (GameViewFragment.textViewPlayer1Turn != null) {
-                                    GameViewFragment.textViewPlayer1Turn.post(new Runnable() {
+                                if (GameViewActivity.textViewPlayer1Turn != null) {
+                                    GameViewActivity.textViewPlayer1Turn.post(new Runnable() {
                                         @Override
                                         public void run() {
-                                            GameViewFragment.textViewPlayer1Turn.setText("");
+                                            GameViewActivity.textViewPlayer1Turn.setText("");
                                         }
                                     });
                                 }
-                                if (GameViewFragment.textViewPlayer2Turn != null) {
-                                    GameViewFragment.textViewPlayer2Turn.post(new Runnable() {
+                                if (GameViewActivity.textViewPlayer2Turn != null) {
+                                    GameViewActivity.textViewPlayer2Turn.post(new Runnable() {
                                         @Override
                                         public void run() {
-                                            GameViewFragment.textViewPlayer2Turn.setText(getResources().getString(R.string.textview_partnerturn));
+                                            GameViewActivity.textViewPlayer2Turn.setText(getResources().getString(R.string.textview_partnerturn));
                                         }
                                     });
                                 }
@@ -199,11 +199,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceChanged(SurfaceHolder surfaceHolder, int format, int width, int height) {
-
     }
 
     @Override
     public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
-
     }
 }

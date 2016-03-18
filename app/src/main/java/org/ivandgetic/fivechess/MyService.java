@@ -20,10 +20,9 @@ import java.net.UnknownHostException;
  */
 public class MyService extends Service {
     private static final int SOCKET_PORT = 50000;
-    public static String SOCKET_ADDRESS = "192.168.1.210";//初始化
+    public static String SOCKET_ADDRESS = "192.168.31.200";//初始化
     public static MyService myService;
     public Socket socket;
-    public GameViewFragment gameViewFragment;
     DataInputStream in;
     DataOutputStream out;
     SharedPreferences preferences;
@@ -63,14 +62,14 @@ public class MyService extends Service {
                             try {
                                 while (true) {
                                     final String line = in.readUTF();
-                                    GameHallFragment.listView.post(new Runnable() {
+                                    MainActivity.listView.post(new Runnable() {
                                         @Override
                                         public void run() {
                                             final String[] separate = line.split(":", 7);
                                             if (separate[0].equals("information")) {
-                                                GameHallFragment.swipeRefreshLayout.setRefreshing(false);
+                                                MainActivity.swipeRefreshLayout.setRefreshing(false);
                                                 UserAdapter.userList.add(new User(separate[1], separate[2], separate[3]));
-                                                MyActivity.userAdapter.notifyDataSetChanged();
+                                                MainActivity.userAdapter.notifyDataSetChanged();
                                             }
                                             if (separate[0].equals("operate")) {
                                                 if (separate[1].equals("clear")) {
@@ -78,11 +77,11 @@ public class MyService extends Service {
                                                 }
                                                 if (separate[1].equals("invitefrom")) {
                                                     GameConfig.setPartner(separate[2]);
-                                                    new AlertDialog.Builder(MyActivity.getMyActivity()).setTitle(getString(R.string.invite_from) + separate[2]).setPositiveButton(getString(R.string.button_agree), new DialogInterface.OnClickListener() {
+                                                    new AlertDialog.Builder(MainActivity.getMainActivity()).setTitle(getString(R.string.invite_from) + separate[2]).setPositiveButton(getString(R.string.button_agree), new DialogInterface.OnClickListener() {
                                                         @Override
                                                         public void onClick(DialogInterface dialogInterface, int i) {
                                                             try {
-                                                                out.writeUTF("operate:agree:" + separate[2] + ":" + MyActivity.preferences.getString("name", ""));
+                                                                out.writeUTF("operate:agree:" + separate[2] + ":" + MainActivity.preferences.getString("name", ""));
                                                             } catch (IOException e) {
                                                                 e.printStackTrace();
                                                             }
@@ -91,7 +90,7 @@ public class MyService extends Service {
                                                         @Override
                                                         public void onClick(DialogInterface dialogInterface, int i) {
                                                             try {
-                                                                out.writeUTF("operate:disagree:" + separate[2] + ":" + MyActivity.preferences.getString("name", ""));
+                                                                out.writeUTF("operate:disagree:" + separate[2] + ":" + MainActivity.preferences.getString("name", ""));
                                                             } catch (IOException e) {
                                                                 e.printStackTrace();
                                                             }
@@ -99,16 +98,18 @@ public class MyService extends Service {
                                                     }).setCancelable(false).show();
                                                 }
                                                 if (separate[1].equals("agree")) {
-                                                    gameViewFragment = new GameViewFragment(MyActivity.preferences.getString("name", ""), GameConfig.getPartner());
+                                                    //GameViewActivity = new GameViewActivity(MainActivity.preferences.getString("name", ""), GameConfig.getPartner());
                                                     GameView.myColor = Integer.parseInt(separate[4]);
                                                     if (separate[5].equals("true")) {
                                                         GameView.turn = true;
                                                     }
-                                                    MyActivity.getMyActivity().getFragmentManager().beginTransaction().add(android.R.id.content, gameViewFragment).addToBackStack(null).commit();
-
+                                                    //MainActivity.getMainActivity().getFragmentManager().beginTransaction().add(android.R.id.content, GameViewActivity).addToBackStack(null).commit();
+                                                    Intent intent=new Intent(MainActivity.getMainActivity(), GameViewActivity.class);
+                                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                    startActivity(intent);
                                                 }
                                                 if (separate[1].equals("disagree")) {
-                                                    Toast.makeText(MyActivity.getMyActivity(), separate[3] + getString(R.string.toast_disagree_invite), Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(MainActivity.getMainActivity(), separate[3] + getString(R.string.toast_disagree_invite), Toast.LENGTH_SHORT).show();
                                                 }
                                             }
                                             if (separate[0].equals("play")) {
@@ -116,26 +117,26 @@ public class MyService extends Service {
                                                     GameView.chess[Integer.parseInt(separate[2])][Integer.parseInt(separate[3])] = Integer.parseInt(separate[4]);
                                                     GameView.lastx = separate[2];
                                                     GameView.lasty = separate[3];
-                                                    GameView.getGameView().draw();
                                                     GameView.check();
+                                                    GameView.getGameView().draw();
                                                 }
                                                 if (separate[1].equals("turn")) {
                                                     if (separate[2].equals("true")) {
                                                         GameView.turn = true;
                                                         if (!GameView.gameEnd) {
-                                                            if (GameViewFragment.textViewPlayer1Turn != null) {
-                                                                GameViewFragment.textViewPlayer1Turn.post(new Runnable() {
+                                                            if (GameViewActivity.textViewPlayer1Turn != null) {
+                                                                GameViewActivity.textViewPlayer1Turn.post(new Runnable() {
                                                                     @Override
                                                                     public void run() {
-                                                                        GameViewFragment.textViewPlayer1Turn.setText(getString(R.string.textview_myturn));
+                                                                        GameViewActivity.textViewPlayer1Turn.setText(getString(R.string.textview_myturn));
                                                                     }
                                                                 });
                                                             }
-                                                            if (GameViewFragment.textViewPlayer2Turn != null) {
-                                                                GameViewFragment.textViewPlayer2Turn.post(new Runnable() {
+                                                            if (GameViewActivity.textViewPlayer2Turn != null) {
+                                                                GameViewActivity.textViewPlayer2Turn.post(new Runnable() {
                                                                     @Override
                                                                     public void run() {
-                                                                        GameViewFragment.textViewPlayer2Turn.setText("");
+                                                                        GameViewActivity.textViewPlayer2Turn.setText("");
                                                                     }
                                                                 });
                                                             }
@@ -144,21 +145,21 @@ public class MyService extends Service {
                                                 }
                                                 if (separate[1].equals("game")) {
                                                     if (separate[2].equals("leave")) {
-                                                        Toast.makeText(MyActivity.getMyActivity(), separate[3] + " " + getString(R.string.toast_has_left_game), Toast.LENGTH_LONG).show();
+                                                        Toast.makeText(MainActivity.getMainActivity(), separate[3] + " " + getString(R.string.toast_has_left_game), Toast.LENGTH_LONG).show();
                                                         if (!GameView.gameEnd) {
-                                                            if (GameViewFragment.textViewPlayer1Turn != null) {
-                                                                GameViewFragment.textViewPlayer1Turn.post(new Runnable() {
+                                                            if (GameViewActivity.textViewPlayer1Turn != null) {
+                                                                GameViewActivity.textViewPlayer1Turn.post(new Runnable() {
                                                                     @Override
                                                                     public void run() {
-                                                                        GameViewFragment.textViewPlayer1Turn.setText("");
+                                                                        GameViewActivity.textViewPlayer1Turn.setText("");
                                                                     }
                                                                 });
                                                             }
-                                                            if (GameViewFragment.textViewPlayer2Turn != null) {
-                                                                GameViewFragment.textViewPlayer2Turn.post(new Runnable() {
+                                                            if (GameViewActivity.textViewPlayer2Turn != null) {
+                                                                GameViewActivity.textViewPlayer2Turn.post(new Runnable() {
                                                                     @Override
                                                                     public void run() {
-                                                                        GameViewFragment.textViewPlayer2Turn.setText(getString(R.string.toast_has_left_game));
+                                                                        GameViewActivity.textViewPlayer2Turn.setText(getString(R.string.toast_has_left_game));
                                                                     }
                                                                 });
                                                             }
