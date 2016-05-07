@@ -10,6 +10,8 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.Toast;
 
+import org.ivandgetic.fivechess.models.GameConfig;
+
 import java.io.IOException;
 
 /**
@@ -60,6 +62,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         lastx = null;
         lasty = null;
     }
+
     public static void check() {
         try {
             for (int i = 0; i < GameConfig.GRID_NUM; i++) {
@@ -88,14 +91,14 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     public static void end(int i1, int j1, int i2, int j2) {
         if (chess[i1][j1] == myColor) {
             Toast.makeText(MainActivity.getMainActivity(), MainActivity.getMainActivity().getString(R.string.toast_youwin), Toast.LENGTH_LONG).show();
-            GameViewActivity.textViewPlayer1Turn.setText("");
-            GameViewActivity.textViewPlayer2Turn.setText("");
+            FiveFragment.textViewPlayer1Turn.setText("");
+            FiveFragment.textViewPlayer2Turn.setText("");
             gameEnd = true;
         } else {
             Toast.makeText(MainActivity.getMainActivity(), MainActivity.getMainActivity().getString(R.string.toast_youlost), Toast.LENGTH_LONG).show();
             gameEnd = true;
-            GameViewActivity.textViewPlayer1Turn.setText("");
-            GameViewActivity.textViewPlayer2Turn.setText("");
+            FiveFragment.textViewPlayer1Turn.setText("");
+            FiveFragment.textViewPlayer2Turn.setText("");
         }
         line = i1 + ":" + j1 + ":" + i2 + ":" + j2;
     }
@@ -158,25 +161,25 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                     if (turn && chess[indexX][indexY] == 0 && !gameEnd) {
                         chess[indexX][indexY] = myColor;
                         try {
-                            MyService.getMyService().out.writeUTF("play:place:" + GameConfig.getPartner() + ":" + indexX + ":" + indexY + ":" + myColor);
+                            MyService.getMyService().dataOutputStream.writeUTF("play:place:" + GameConfig.getPartner() + ":" + indexX + ":" + indexY + ":" + myColor);
                             lastx = String.valueOf(indexX);
                             lasty = String.valueOf(indexY);
                             turn = false;
                             check();
                             if (!GameView.gameEnd) {
-                                if (GameViewActivity.textViewPlayer1Turn != null) {
-                                    GameViewActivity.textViewPlayer1Turn.post(new Runnable() {
+                                if (FiveFragment.textViewPlayer1Turn != null) {
+                                    FiveFragment.textViewPlayer1Turn.post(new Runnable() {
                                         @Override
                                         public void run() {
-                                            GameViewActivity.textViewPlayer1Turn.setText("");
+                                            FiveFragment.textViewPlayer1Turn.setText("");
                                         }
                                     });
                                 }
-                                if (GameViewActivity.textViewPlayer2Turn != null) {
-                                    GameViewActivity.textViewPlayer2Turn.post(new Runnable() {
+                                if (FiveFragment.textViewPlayer2Turn != null) {
+                                    FiveFragment.textViewPlayer2Turn.post(new Runnable() {
                                         @Override
                                         public void run() {
-                                            GameViewActivity.textViewPlayer2Turn.setText(getResources().getString(R.string.textview_partnerturn));
+                                            FiveFragment.textViewPlayer2Turn.setText(getResources().getString(R.string.textview_partnerturn));
                                         }
                                     });
                                 }

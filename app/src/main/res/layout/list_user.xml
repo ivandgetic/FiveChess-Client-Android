@@ -12,19 +12,21 @@
         android:id="@+id/textView_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#444444"
         android:layout_alignParentLeft="true"
-        android:textStyle="bold"
-        android:textSize="22sp"
         android:layout_alignParentTop="true"
         android:singleLine="true"
-        android:text="Name" />
+        android:text="Name"
+        android:textColor="#444444"
+        android:textSize="22sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textView_state"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/textView_name"
+        android:layout_toEndOf="@+id/textView_name"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:paddingLeft="10dp"
         android:text=" [OnLine]" />
 
@@ -33,8 +35,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/button_invite"
-        android:textColor="#777777"
-        android:text="127.0.0.1" />
+        android:text="127.0.0.1"
+        android:textColor="#777777" />
 
     <Button
         android:id="@id/button_invite"

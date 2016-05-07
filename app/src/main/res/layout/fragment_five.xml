@@ -1,0 +1,47 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <org.ivandgetic.fivechess.GameView
+        android:id="@+id/gameview"
+        android:layout_width="match_parent"
+        android:layout_height="320dp" />
+
+    <TextView
+        android:id="@+id/textView_play1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/gameview"
+        android:text="玩家1: " />
+
+    <TextView
+        android:id="@+id/textView_play2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/gameview"
+        android:text="玩家2: " />
+
+    <TextView
+        android:id="@+id/textView_play1_turn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/textView_play1"
+        android:layout_marginRight="10dp"
+        android:layout_toStartOf="@id/textView_play1"
+        android:text="轮到我" />
+
+
+    <TextView
+        android:id="@+id/textView_play2_turn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/textView_play2"
+        android:layout_marginLeft="10dp"
+        android:layout_toEndOf="@id/textView_play2"
+        android:text="轮到对手" />
+
+</RelativeLayout>
