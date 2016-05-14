@@ -88,23 +88,6 @@ public class MainActivity extends AppCompatActivity {
             stopService(new Intent(this, MyService.class));
             System.exit(0);
             return true;
-        } else if (id == R.id.action_reconnect) {
-            UserAdapter.userList.clear();
-            try {
-                if (MyService.dataOutputStream != null) {
-                    MyService.dataOutputStream.close();
-                }
-                if (MyService.dataInputStream != null) {
-                    MyService.dataInputStream.close();
-                }
-                if (MyService.socket != null) {
-                    MyService.socket.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            stopService(new Intent(this, MyService.class));
-            startService(new Intent(this, MyService.class));
         } else if (id == R.id.action_logout) {
             UserAdapter.userList.clear();
             try {
